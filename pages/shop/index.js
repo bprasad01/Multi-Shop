@@ -4,7 +4,7 @@ import BreadCrumb from '../../components/Shop/BreadCrumb'
 import Products from '../../components/Shop/Products'
 
 const Shop = ({products}) => {
-  console.log(products)
+ 
   return (
     <>
     <BreadCrumb />

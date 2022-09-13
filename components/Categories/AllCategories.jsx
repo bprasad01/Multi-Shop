@@ -1,7 +1,7 @@
 import React from 'react'
 
 const AllCategories = ({categories}) => {
-    console.log(categories)
+   
   return (
     <>
     <div className="container-fluid pt-5">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { FaHeart, FaSearch, FaShoppingCart, FaSyncAlt } from "react-icons/fa";
 
 const Products = ({ products }) => {
   return (
@@ -19,7 +20,7 @@ const Products = ({ products }) => {
                     checked
                     id="price-all"
                   />
-                  <label className="custom-control-label" for="price-all">
+                  <label className="custom-control-label" htmlFor="price-all">
                     All Price
                   </label>
                   <span className="badge border font-weight-normal">1000</span>
@@ -30,7 +31,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="price-1"
                   />
-                  <label className="custom-control-label" for="price-1">
+                  <label className="custom-control-label" htmlFor="price-1">
                     $0 - $100
                   </label>
                   <span className="badge border font-weight-normal">150</span>
@@ -41,7 +42,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="price-2"
                   />
-                  <label className="custom-control-label" for="price-2">
+                  <label className="custom-control-label" htmlFor="price-2">
                     $100 - $200
                   </label>
                   <span className="badge border font-weight-normal">295</span>
@@ -52,7 +53,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="price-3"
                   />
-                  <label className="custom-control-label" for="price-3">
+                  <label className="custom-control-label" htmlFor="price-3">
                     $200 - $300
                   </label>
                   <span className="badge border font-weight-normal">246</span>
@@ -63,7 +64,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="price-4"
                   />
-                  <label className="custom-control-label" for="price-4">
+                  <label className="custom-control-label" htmlFor="price-4">
                     $300 - $400
                   </label>
                   <span className="badge border font-weight-normal">145</span>
@@ -74,7 +75,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="price-5"
                   />
-                  <label className="custom-control-label" for="price-5">
+                  <label className="custom-control-label" htmlFor="price-5">
                     $400 - $500
                   </label>
                   <span className="badge border font-weight-normal">168</span>
@@ -94,7 +95,7 @@ const Products = ({ products }) => {
                     checked
                     id="color-all"
                   />
-                  <label className="custom-control-label" for="price-all">
+                  <label className="custom-control-label" htmlFor="price-all">
                     All Color
                   </label>
                   <span className="badge border font-weight-normal">1000</span>
@@ -105,7 +106,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="color-1"
                   />
-                  <label className="custom-control-label" for="color-1">
+                  <label className="custom-control-label" htmlFor="color-1">
                     Black
                   </label>
                   <span className="badge border font-weight-normal">150</span>
@@ -116,7 +117,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="color-2"
                   />
-                  <label className="custom-control-label" for="color-2">
+                  <label className="custom-control-label" htmlFor="color-2">
                     White
                   </label>
                   <span className="badge border font-weight-normal">295</span>
@@ -127,7 +128,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="color-3"
                   />
-                  <label className="custom-control-label" for="color-3">
+                  <label className="custom-control-label" htmlFor="color-3">
                     Red
                   </label>
                   <span className="badge border font-weight-normal">246</span>
@@ -138,7 +139,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="color-4"
                   />
-                  <label className="custom-control-label" for="color-4">
+                  <label className="custom-control-label" htmlFor="color-4">
                     Blue
                   </label>
                   <span className="badge border font-weight-normal">145</span>
@@ -149,7 +150,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="color-5"
                   />
-                  <label className="custom-control-label" for="color-5">
+                  <label className="custom-control-label" htmlFor="color-5">
                     Green
                   </label>
                   <span className="badge border font-weight-normal">168</span>
@@ -169,7 +170,7 @@ const Products = ({ products }) => {
                     checked
                     id="size-all"
                   />
-                  <label className="custom-control-label" for="size-all">
+                  <label className="custom-control-label" htmlFor="size-all">
                     All Size
                   </label>
                   <span className="badge border font-weight-normal">1000</span>
@@ -180,7 +181,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="size-1"
                   />
-                  <label className="custom-control-label" for="size-1">
+                  <label className="custom-control-label" htmlFor="size-1">
                     XS
                   </label>
                   <span className="badge border font-weight-normal">150</span>
@@ -191,7 +192,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="size-2"
                   />
-                  <label className="custom-control-label" for="size-2">
+                  <label className="custom-control-label" htmlFor="size-2">
                     S
                   </label>
                   <span className="badge border font-weight-normal">295</span>
@@ -202,7 +203,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="size-3"
                   />
-                  <label className="custom-control-label" for="size-3">
+                  <label className="custom-control-label" htmlFor="size-3">
                     M
                   </label>
                   <span className="badge border font-weight-normal">246</span>
@@ -213,7 +214,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="size-4"
                   />
-                  <label className="custom-control-label" for="size-4">
+                  <label className="custom-control-label" htmlFor="size-4">
                     L
                   </label>
                   <span className="badge border font-weight-normal">145</span>
@@ -224,7 +225,7 @@ const Products = ({ products }) => {
                     className="custom-control-input"
                     id="size-5"
                   />
-                  <label className="custom-control-label" for="size-5">
+                  <label className="custom-control-label" htmlFor="size-5">
                     XL
                   </label>
                   <span className="badge border font-weight-normal">168</span>
@@ -236,7 +237,7 @@ const Products = ({ products }) => {
           <div className="col-lg-9 col-md-8">
             <div className="row pb-3">
               {products.map((product) => (
-                <Link href={`/shop/${product.id}`} passHref>
+                <Link href={`/shop/${product.id}`} passHref key={product.id}>
                 <div
                   className="col-lg-4 col-md-6 col-sm-6 pb-1"
                   key={product.id}
@@ -250,16 +251,16 @@ const Products = ({ products }) => {
                       />
                       <div className="product-action">
                         <a className="btn btn-outline-dark btn-square" href="">
-                          <i className="fa fa-shopping-cart"></i>
+                          <FaShoppingCart />
                         </a>
                         <a className="btn btn-outline-dark btn-square" href="">
-                          <i className="far fa-heart"></i>
+                          <FaHeart />
                         </a>
                         <a className="btn btn-outline-dark btn-square" href="">
-                          <i className="fa fa-sync-alt"></i>
+                          <FaSyncAlt />
                         </a>
                         <a className="btn btn-outline-dark btn-square" href="">
-                          <i className="fa fa-search"></i>
+                          <FaSearch />
                         </a>
                       </div>
                     </div>
