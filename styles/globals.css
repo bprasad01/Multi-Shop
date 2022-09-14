@@ -4040,6 +4040,10 @@ input[type="button"].btn-block {
   list-style: none;
 }
 
+.navbar-nav.clicked {
+  display: none;
+}
+
 .navbar-nav .nav-link {
   padding-right: 0;
   padding-left: 0;
