@@ -16,7 +16,6 @@ const Shop = ({products}) => {
 export const getServerSideProps = async () => {
   const resProducts = await axios.get('https://wpfurniture.mangoitsol.com/wp-json/wc/store/products')
   const products = resProducts.data;
-  console.log(products)
   return {
     props : {
       products,

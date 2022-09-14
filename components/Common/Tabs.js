@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Tabs = () => {
+const Tabs = ({description}) => {
   const [toggleState, setToggleState] = useState(1);
   const toggleTab = (index) => {
     setToggleState(index);
@@ -56,26 +56,9 @@ const Tabs = () => {
               >
                 <h4 className="mb-3">Product Description</h4>
                 <p>
-                  Eos no lorem eirmod diam diam, eos elitr et gubergren diam
-                  sea. Consetetur vero aliquyam invidunt duo dolores et duo sit.
-                  Vero diam ea vero et dolore rebum, dolor rebum eirmod
-                  consetetur invidunt sed sed et, lorem duo et eos elitr,
-                  sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed
-                  tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing,
-                  eos dolores sit no ut diam consetetur duo justo est, sit
-                  sanctus diam tempor aliquyam eirmod nonumy rebum dolor
-                  accusam, ipsum kasd eos consetetur at sit rebum, diam kasd
-                  invidunt tempor lorem, ipsum lorem elitr sanctus eirmod
-                  takimata dolor ea invidunt.
+                  {description}
                 </p>
-                <p>
-                  Dolore magna est eirmod sanctus dolor, amet diam et eirmod et
-                  ipsum. Amet dolore tempor consetetur sed lorem dolor sit lorem
-                  tempor. Gubergren amet amet labore sadipscing clita clita diam
-                  clita. Sea amet et sed ipsum lorem elitr et, amet et labore
-                  voluptua sit rebum. Ea erat sed et diam takimata sed justo.
-                  Magna takimata justo et amet magna et.
-                </p>
+                
               </div>
               <div
                 className={
@@ -150,7 +133,7 @@ const Tabs = () => {
               >
                 <div className="row">
                   <div className="col-md-6">
-                    <h4 className="mb-4">1 review for "Product Name"</h4>
+                    <h4 className="mb-4">1 review for Product Name</h4>
                     <div className="media mb-4">
                       <img
                         src="img/user.jpg"
@@ -162,7 +145,7 @@ const Tabs = () => {
                         <h6>
                           John Doe
                           <small>
-                            {" "}
+                            
                             - <i>01 Jan 2045</i>
                           </small>
                         </h6>

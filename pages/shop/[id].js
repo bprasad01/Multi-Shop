@@ -13,6 +13,7 @@ import {
   FaShoppingCart,
   FaTwitter,
 } from "react-icons/fa";
+import RelatedProducts from "../../components/Products/RelatedProducts";
 
 const responsive = {
   desktop: {
@@ -29,8 +30,8 @@ const responsive = {
   },
 };
 
-const ProductPage = ({ product, deviceType }) => {
- 
+const ProductPage = ({ product, deviceType, relatedProducts }) => {
+  const { description } = product;
   return (
     <>
       <div className="container-fluid pb-5">
@@ -82,126 +83,7 @@ const ProductPage = ({ product, deviceType }) => {
                 ${product.prices.price}
               </h3>
               <p className="mb-4">{product.description}</p>
-              <div className="d-flex mb-3">
-                <strong className="text-dark mr-3">Sizes:</strong>
-                <form>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id="size-1"
-                      name="size"
-                    />
-                    <label className="custom-control-label" htmlFor="size-1">
-                      XS
-                    </label>
-                  </div>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id="size-2"
-                      name="size"
-                    />
-                    <label className="custom-control-label" htmlFor="size-2">
-                      S
-                    </label>
-                  </div>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id="size-3"
-                      name="size"
-                    />
-                    <label className="custom-control-label" htmlFor="size-3">
-                      M
-                    </label>
-                  </div>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id="size-4"
-                      name="size"
-                    />
-                    <label className="custom-control-label" htmlFor="size-4">
-                      L
-                    </label>
-                  </div>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id="size-5"
-                      name="size"
-                    />
-                    <label className="custom-control-label" htmlFor="size-5">
-                      XL
-                    </label>
-                  </div>
-                </form>
-              </div>
-              <div className="d-flex mb-4">
-                <strong className="text-dark mr-3">Colors:</strong>
-                <form>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id="color-1"
-                      name="color"
-                    />
-                    <label className="custom-control-label" htmlFor="color-1">
-                      Black
-                    </label>
-                  </div>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id="color-2"
-                      name="color"
-                    />
-                    <label className="custom-control-label" htmlFor="color-2">
-                      White
-                    </label>
-                  </div>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id="color-3"
-                      name="color"
-                    />
-                    <label className="custom-control-label" htmlFor="color-3">
-                      Red
-                    </label>
-                  </div>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id="color-4"
-                      name="color"
-                    />
-                    <label className="custom-control-label" htmlFor="color-4">
-                      Blue
-                    </label>
-                  </div>
-                  <div className="custom-control custom-radio custom-control-inline">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id="color-5"
-                      name="color"
-                    />
-                    <label className="custom-control-label" htmlFor="color-5">
-                      Green
-                    </label>
-                  </div>
-                </form>
-              </div>
+              
               <div className="d-flex align-items-center mb-4 pt-2">
                 <div
                   className="input-group quantity mr-3"
@@ -247,8 +129,9 @@ const ProductPage = ({ product, deviceType }) => {
             </div>
           </div>
         </div>
-        <Tabs />
+        <Tabs description={description}/>
       </div>
+       <RelatedProducts relatedProducts={relatedProducts}/>
     </>
   );
 };
@@ -258,10 +141,14 @@ export const getServerSideProps = async (context) => {
   const resProduct = await axios.get(
     `https://wpfurniture.mangoitsol.com/wp-json/wc/store/products/${params.id}`
   );
-  const product = await resProduct.data;
+  const resRelated = await axios.get(`https://wpfurniture.mangoitsol.com/wp-json/wc/store/products?orderby=slug`)
+  const product =  resProduct.data;
+  const relatedProducts = resRelated.data; 
+
   return {
     props: {
       product,
+      relatedProducts,
     },
   };
 };

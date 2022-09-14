@@ -61,13 +61,14 @@ const VendorCarousel = () => {
                 autoplayTimeout={2000}
                 autoplaySpeed={2000}
                 autoplayHoverPause={false}
+                margin = {20}
               >
                 {VendorCards.map((card) => (
                   <div className="bg-light p-4" key={card.id}>
                     <img
                       src={card.banner}
                       alt=""
-                      style={{ width: "100px", height: "90px" }}
+                      style={{ width: "180px", height : "100px" }}
                     />
                   </div>
                 ))}

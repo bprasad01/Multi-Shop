@@ -6,7 +6,6 @@ import FeaturedProducts from "../components/Products/FeaturedProducts";
 import RecentProducts from "../components/Products/RecentProducts";
 import dynamic from "next/dynamic";
 import axios from "axios";
-import Tabs from "../components/Common/Tabs";
 
 const VendorCarousel = dynamic(
   () => import("../components/Common/VendorCarousel"),
@@ -21,7 +20,7 @@ const BannerCarousel = dynamic(
     ssr: false,
   }
 );
-export default function Home({ categories }) {
+export default function Home({ categories, featured, recentProducts }) {
   return (
     <div>
       <Head>
@@ -32,11 +31,11 @@ export default function Home({ categories }) {
       <BannerCarousel />
       <Featured />
       <AllCategories categories={categories} />
-      <FeaturedProducts />
+      <FeaturedProducts featured={featured}/>
       <SpecialOffer />
-      <RecentProducts />
+      <RecentProducts recentProducts={recentProducts}/>
       <VendorCarousel />
-      <Tabs />
+      
     </div>
   );
 }
@@ -45,10 +44,16 @@ export const getServerSideProps = async () => {
   const resCategories = await axios.get(
     "https://wpfurniture.mangoitsol.com/wp-json/wc/store/products/categories"
   );
+  const resFeatured = await axios.get("https://wpfurniture.mangoitsol.com/wp-json/wc/store/products?featured=true");
+  const resProducts = await axios.get("https://wpfurniture.mangoitsol.com/wp-json/wc/store/products?orderby=date&order=asc");
   const categories = resCategories.data;
+  const featured = resFeatured.data;
+  const recentProducts = resProducts.data;
   return {
     props: {
       categories,
+      featured,
+      recentProducts
     },
   };
 };

@@ -45,8 +45,6 @@ const BannerCarousel = () => {
                   nav={false}
                   autoplay={true}
                   dots={false}
-                  autoplayTimeout={2000}
-                  autoplaySpeed={2000}
                   autoplayHoverPause={false}
                   items={1}
                   margin={10}

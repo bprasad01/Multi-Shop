@@ -1,27 +1,36 @@
+import axios from 'axios';
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaAngleDown, FaBars, FaHeart, FaShoppingCart } from 'react-icons/fa'
 
 const NavBar = () => {
+
+    const [category, setCategory] = useState([]);
+    const [ toggleState, setToggleState ] = useState(false);
+    useEffect(() => {
+        fetchCategoryData();
+    }, [])
+    const fetchCategoryData = async () => {
+        const res = await axios.get('https://wpfurniture.mangoitsol.com/wp-json/wc/store/products/categories');
+        const categoryData = res.data;
+        setCategory(categoryData);
+    }
+
+    const handleTab = () => {
+        setToggleState(!toggleState);
+    }
+
   return (
     <>
      <div className="container-fluid bg-dark mb-30">
         <div className="row px-xl-5">
             <div className="col-lg-3 d-none d-lg-block">
-                <a className="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style={{height: "65px", padding: "0 30px"}}>
+                <a className="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" style={{height: "65px", padding: "0 30px"}}>
                     <h6 className="text-dark m-0"><FaBars className='mr-2'/>Categories</h6>
-                    <FaAngleDown className=' text-dark'/>
+                    <FaAngleDown className=' text-dark' onClick={handleTab}/>
                 </a>
-                <nav className="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style={{width:" calc(100% - 30px)", zIndex: "999"}}>
+                {toggleState &&  (<nav className="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style={{width:" calc(100% - 30px)", zIndex: "999"}}>
                     <div className="navbar-nav w-100">
-                        <div className="nav-item dropdown dropright">
-                            <a href="#" className="nav-link dropdown-toggle" data-toggle="dropdown">Dresses <i className="fa fa-angle-right float-right mt-1"></i></a>
-                            <div className="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                <a href="" className="dropdown-item">Men's Dresses</a>
-                                <a href="" className="dropdown-item">Women's Dresses</a>
-                                <a href="" className="dropdown-item">Baby's Dresses</a>
-                            </div>
-                        </div>
                         <a href="" className="nav-item nav-link">Shirts</a>
                         <a href="" className="nav-item nav-link">Jeans</a>
                         <a href="" className="nav-item nav-link">Swimwear</a>
@@ -32,7 +41,8 @@ const NavBar = () => {
                         <a href="" className="nav-item nav-link">Jackets</a>
                         <a href="" className="nav-item nav-link">Shoes</a>
                     </div>
-                </nav>
+                </nav>)}
+               
             </div>
             <div className="col-lg-9">
                 <nav className="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
