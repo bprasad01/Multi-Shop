@@ -10,7 +10,7 @@ const CategoryPage = ({products}) => {
     <h2 className="section-title position-relative text-uppercase mx-xl-5 mb-4"><span className="bg-secondary pr-3">Products</span></h2>
     <div className="row px-xl-5">
         {products.map(product => (
-            <Link href={`/shop/${product.id}`} passHref>
+            <Link href={`/shop/${product.id}`} passHref key={product.id}>
             <div className="col-lg-3 col-md-4 col-sm-6 pb-1" style={{cursor : "pointer"}} key={product.id}>
             <div className="product-item bg-light mb-4">
                 <div className="product-img position-relative overflow-hidden">
