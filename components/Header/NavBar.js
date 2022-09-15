@@ -1,17 +1,22 @@
-import axios from "axios";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FaAngleDown, FaBars, FaHeart, FaShoppingCart } from "react-icons/fa";
 import Dropdown from "./Dropdown";
-
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
+
+  const quantity = useSelector(state => state.cart)
   
   const [isOpen, setIsOpen] = useState(false);
 
   const toggling = () => {
     setIsOpen(!isOpen);
   };
+
+  const getItemsCount = () => {
+    return quantity.reduce((acc, items ) => acc + items.quantity, 0)
+  }
 
   return (
     <>
@@ -54,32 +59,12 @@ const NavBar = () => {
                 id="navbarCollapse"
               >
                 <div className="navbar-nav mr-auto py-0">
-                  <Link href={"/"}>
+                  <Link href={"/"} passHref>
                     <a className="nav-item nav-link active">Home</a>
                   </Link>
-                  <Link href={"/shop"}>
+                  <Link href={"/shop"} passHref>
                     <a className="nav-item nav-link">Shop</a>
                   </Link>
-                  <a href="detail.html" className="nav-item nav-link">
-                    Shop Detail
-                  </a>
-                  <div className="nav-item dropdown">
-                    <a
-                      href="#"
-                      className="nav-link dropdown-toggle"
-                      data-toggle="dropdown"
-                    >
-                      Pages <i className="fa fa-angle-down mt-1"></i>
-                    </a>
-                    <div className="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                      <a href="cart.html" className="dropdown-item">
-                        Shopping Cart
-                      </a>
-                      <a href="checkout.html" className="dropdown-item">
-                        Checkout
-                      </a>
-                    </div>
-                  </div>
                   <a href="contact.html" className="nav-item nav-link">
                     Contact
                   </a>
@@ -94,15 +79,17 @@ const NavBar = () => {
                       0
                     </span>
                   </a>
-                  <a href="" className="btn px-0 ml-3">
+                  <Link href={'/cartitem'} passHref>
+                  <a className="btn px-0 ml-3">
                     <FaShoppingCart className="text-primary" />
                     <span
                       className="badge text-secondary border border-secondary rounded-circle"
                       style={{ paddingBottom: "2px" }}
                     >
-                      0
+                      {getItemsCount()}
                     </span>
                   </a>
+                  </Link>
                 </div>
               </div>
             </nav>

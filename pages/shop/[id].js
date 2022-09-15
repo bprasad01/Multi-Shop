@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Tabs from "../../components/Common/Tabs";
@@ -14,6 +14,9 @@ import {
   FaTwitter,
 } from "react-icons/fa";
 import RelatedProducts from "../../components/Products/RelatedProducts";
+import { useDispatch } from "react-redux";
+// import { addProduct } from "../../redux/cartSlice";
+import { addToCart } from "../../redux/cardSlice";
 
 const responsive = {
   desktop: {
@@ -31,7 +34,23 @@ const responsive = {
 };
 
 const ProductPage = ({ product, deviceType, relatedProducts }) => {
+  const [ quantity, setQuantity] = useState(1)
   const { description } = product;
+  const dispatch = useDispatch();
+
+  const handleQuantity = (type) => {
+    if(type === "dec"){
+      console.log("Desc...")
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      console.log("Inc...")
+      setQuantity( quantity + 1);
+
+    }
+  }
+  const handleClick = () => {
+    dispatch(addToCart(product))
+  }
   return (
     <>
       <div className="container-fluid pb-5">
@@ -90,22 +109,23 @@ const ProductPage = ({ product, deviceType, relatedProducts }) => {
                   style={{ width: "130px" }}
                 >
                   <div className="input-group-btn">
-                    <button className="btn btn-primary btn-minus">
+                    <button className="btn btn-primary btn-minus" onClick={() => handleQuantity("dec")}>
                       <FaMinus />
                     </button>
                   </div>
                   <input
                     type="text"
                     className="form-control bg-secondary border-0 text-center"
-                    value="1"
+                    value={quantity}
                   />
+                  {/* <span>{quantity}</span> */}
                   <div className="input-group-btn">
-                    <button className="btn btn-primary btn-plus">
+                    <button className="btn btn-primary btn-plus" onClick={() => handleQuantity("inc")}>
                       <FaPlus />
                     </button>
                   </div>
                 </div>
-                <button className="btn btn-primary px-3">
+                <button className="btn btn-primary px-3" onClick={handleClick}>
                   <FaShoppingCart /> Add To Cart
                 </button>
               </div>

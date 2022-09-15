@@ -6,7 +6,6 @@ import FeaturedProducts from "../components/Products/FeaturedProducts";
 import RecentProducts from "../components/Products/RecentProducts";
 import dynamic from "next/dynamic";
 import axios from "axios";
-import Dropdown from "../components/Header/Dropdown";
 
 const VendorCarousel = dynamic(
   () => import("../components/Common/VendorCarousel"),
