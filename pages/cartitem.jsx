@@ -52,8 +52,8 @@ const Cart = () => {
                             className="input-group quantity mx-auto"
                             style={{ width: "100px" }}
                           >
-                            <div class="input-group-btn">
-                              <button onClick={() => dispatch(decrementQuantity(item.id))} class="btn btn-sm btn-primary btn-minus">
+                            <div className="input-group-btn">
+                              <button onClick={() => dispatch(decrementQuantity(item.id))} className="btn btn-sm btn-primary btn-minus">
                                <FaMinus />
                               </button>
                             </div>
@@ -62,8 +62,8 @@ const Cart = () => {
                               className="form-control form-control-sm bg-secondary border-0 text-center"
                               value={item.quantity}
                             />
-                            <div class="input-group-btn">
-                              <button onClick={() => dispatch(incrementQuantity(item.id))} class="btn btn-sm btn-primary btn-plus">
+                            <div className="input-group-btn">
+                              <button onClick={() => dispatch(incrementQuantity(item.id))} className="btn btn-sm btn-primary btn-plus">
                                 <FaPlus />
                               </button>
                             </div>
