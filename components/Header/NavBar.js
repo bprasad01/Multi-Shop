@@ -79,7 +79,7 @@ const NavBar = () => {
                       0
                     </span>
                   </a>
-                  <Link href={'/cartitem'} passHref>
+                  <Link href={'/cart'} passHref>
                   <a className="btn px-0 ml-3">
                     <FaShoppingCart className="text-primary" />
                     <span
