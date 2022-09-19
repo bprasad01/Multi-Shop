@@ -33,11 +33,10 @@ const Cart = () => {
                 </thead>
                 <tbody className="align-middle">
                   {cart.map((item) => {
-                    console.log(item);
                     return (
-                      <tr>
+                      <tr key={item.id}>
                         {item.images.slice(0, 1).map((imgItem) => (
-                          <td className="align-middle">
+                          <td className="align-middle" key={imgItem.id}>
                             <img
                               src={imgItem.src}
                               alt="items"
