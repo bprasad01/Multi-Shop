@@ -1,8 +1,11 @@
-import axios from "axios";
 import React, { useState } from "react";
+import axios from "axios";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Tabs from "../../components/Common/Tabs";
+import RelatedProducts from "../../components/Products/RelatedProducts";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cardSlice";
 
 import {
   FaFacebook,
@@ -13,10 +16,6 @@ import {
   FaShoppingCart,
   FaTwitter,
 } from "react-icons/fa";
-import RelatedProducts from "../../components/Products/RelatedProducts";
-import { useDispatch } from "react-redux";
-// import { addProduct } from "../../redux/cartSlice";
-import { addToCart } from "../../redux/cardSlice";
 
 const responsive = {
   desktop: {
@@ -40,12 +39,9 @@ const ProductPage = ({ product, deviceType, relatedProducts }) => {
 
   const handleQuantity = (type) => {
     if(type === "dec"){
-      console.log("Desc...")
       quantity > 1 && setQuantity(quantity - 1);
     } else {
-      console.log("Inc...")
       setQuantity( quantity + 1);
-
     }
   }
   const handleClick = () => {
@@ -118,7 +114,6 @@ const ProductPage = ({ product, deviceType, relatedProducts }) => {
                     className="form-control bg-secondary border-0 text-center"
                     value={quantity}
                   />
-                  {/* <span>{quantity}</span> */}
                   <div className="input-group-btn">
                     <button className="btn btn-primary btn-plus" onClick={() => handleQuantity("inc")}>
                       <FaPlus />
