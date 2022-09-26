@@ -68,6 +68,9 @@ const NavBar = () => {
                   <a href="contact.html" className="nav-item nav-link">
                     Contact
                   </a>
+                  <Link href={"/subscribe"} passHref>
+                    <a className="nav-item nav-link">Subscription</a>
+                  </Link>
                 </div>
                 <div className="navbar-nav ml-auto py-0 d-none d-lg-block">
                   <a href="" className="btn px-0">

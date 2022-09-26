@@ -3,18 +3,19 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 export default async (req, res) => {
   const { items, email } = req.body;
 
-  console.log(items);
-
   const transformedItems = items.map((item) => ({
+    quantity: 1,
     price_data: {
       currency: "inr",
       product_data: {
-        name: item.title,
+        name: item.name,
+        description: item.description,
       },
-      unit_amount: item.price * 100,
+      unit_amount: item.prices.price * 100,
+      recurring: {
+        interval: "month",
+      },
     },
-    description: item.description,
-    quantity: 1,
   }));
 
   const session = await stripe.checkout.sessions.create({
@@ -23,7 +24,7 @@ export default async (req, res) => {
       allowed_countries: ["IN"],
     },
     line_items: transformedItems,
-    mode: "payment",
+    mode: "subscription",
     success_url: "http://localhost:3000/success",
     cancel_url: "http://localhost:3000/cancel",
     metadata: {

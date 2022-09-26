@@ -3,20 +3,20 @@ import { useRouter } from "next/router";
 import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import api from "../../utils/config";
-import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 import {
   incrementQuantity,
   decrementQuantity,
   removeFromCart,
 } from "../../redux/cardSlice";
-
+// stripe
+import { loadStripe } from "@stripe/stripe-js";
 // paypal
 import {
   PayPalScriptProvider,
   PayPalButtons,
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
-import axios from "axios";
 
 const Cart = () => {
   const [open, setOpen] = useState(false);
@@ -24,15 +24,6 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const router = useRouter();
   const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-  const items = [
-    {
-      title: "Apple Macbook Pro",
-      description: "Apple M1 Chip with 8‑Core CPU and 8‑Core GPU 256GB Storage",
-      image:
-        "/img/carousel-1.jpg",
-      price: 122900,
-    },
-  ];
 
   const getTotalPrice = () => {
     return cart.reduce(
@@ -41,11 +32,12 @@ const Cart = () => {
     );
   };
 
+  // function for stripe payment integration
   const createCheckOutSession = async () => {
     const stripe = await stripePromise;
 
     const checkoutSession = await axios.post("/api/create-checkout-session", {
-      items : items,
+      items : cart,
       email : "test@gmail.com"
     });
 
@@ -55,6 +47,16 @@ const Cart = () => {
 
     if(result.error){
       alert(result.error.message);
+    }
+  }
+
+  // function for subscription
+  const createSubscription = async () => {
+    try {
+      
+    } catch (err) {
+      console.log(err);
+      alert('Payment Failed', err.message);
     }
   }
 
@@ -258,6 +260,9 @@ const Cart = () => {
                    </PayPalScriptProvider>
                    <button onClick={createCheckOutSession} className="btn btn-block btn-primary font-weight-bold my-3 py-3">
                     Pay With Stripe
+                  </button>
+                  <button onClick={createSubscription} className="btn btn-block btn-primary font-weight-bold my-3 py-3">
+                    Subscribe
                   </button>
                    </div>
                   ) : (

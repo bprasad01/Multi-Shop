@@ -13,11 +13,14 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@paypal/react-paypal-js": "^7.8.1",
     "@reduxjs/toolkit": "^1.8.5",
-    "@stripe/stripe-js": "^1.36.0",
+    "@stripe/react-stripe-js": "^1.11.0",
+    "@stripe/stripe-js": "^1.38.1",
     "@woocommerce/woocommerce-rest-api": "^1.0.1",
+    "antd": "^4.23.2",
     "axios": "^0.27.2",
     "bootstrap": "^4.5.3",
     "jquery": "^3.6.1",
+    "micro": "^9.4.1",
     "next": "^12.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -25,9 +28,8 @@
     "react-multi-carousel": "^2.8.2",
     "react-owl-carousel": "^2.3.3",
     "react-redux": "^8.0.2",
-    "react-stripe-checkout": "^2.6.3",
     "redux": "^4.2.0",
-    "stripe": "^10.10.0"
+    "stripe": "^10.11.0"
   },
   "devDependencies": {
     "eslint": "8.23.1",
