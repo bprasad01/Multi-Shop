@@ -3,7 +3,6 @@ import React from "react";
 import { FaHeart, FaSearch, FaShoppingCart, FaSyncAlt } from "react-icons/fa";
 
 const RelatedProducts = ({ relatedProducts }) => {
-  
   return (
     <div className="container-fluid pt-5 pb-3">
       <h2 className="section-title position-relative text-uppercase mx-xl-5 mb-4">

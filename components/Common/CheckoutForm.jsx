@@ -1,15 +1,18 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React from "react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import SubscriptionCard from "./SubscriptionCard";
 
 const CheckoutForm = () => {
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [zipcode, setZipcode] = useState("");
-
+  const plan = useSelector(state => state.plan);
+  console.log(plan);
   const stripe = useStripe();
   const elements = useElements();
 
@@ -28,10 +31,12 @@ const CheckoutForm = () => {
         },
         body: JSON.stringify({
           name,
+          email,
           address,
           city,
           state,
           zipcode,
+          items : plan,
           paymentMethod: paymentMethod.paymentMethod.id,
         }),
       });
@@ -74,7 +79,7 @@ const CheckoutForm = () => {
         <div className="col-md-8">
         <form onSubmit={handleSubmit}>
           <div className="form-row">
-            <div className="form-group col-md-12">
+            <div className="form-group col-md-6">
               <label htmlFor="name">Name On Card</label>
               <input
                 type="text"
@@ -82,6 +87,16 @@ const CheckoutForm = () => {
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="form-group col-md-6">
+              <label htmlFor="name">Email</label>
+              <input
+                type="text"
+                className="form-control"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
           </div>

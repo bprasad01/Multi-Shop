@@ -33,20 +33,21 @@ const responsive = {
 };
 
 const ProductPage = ({ product, deviceType, relatedProducts }) => {
-  const [ quantity, setQuantity] = useState(1)
+  console.log(product);
+  const [quantity, setQuantity] = useState(1);
   const { description } = product;
   const dispatch = useDispatch();
 
   const handleQuantity = (type) => {
-    if(type === "dec"){
+    if (type === "dec") {
       quantity > 1 && setQuantity(quantity - 1);
     } else {
-      setQuantity( quantity + 1);
+      setQuantity(quantity + 1);
     }
-  }
+  };
   const handleClick = () => {
-    dispatch(addToCart(product))
-  }
+    dispatch(addToCart(product));
+  };
   return (
     <>
       <div className="container-fluid pb-5">
@@ -98,14 +99,17 @@ const ProductPage = ({ product, deviceType, relatedProducts }) => {
                 ${product.prices.price}
               </h3>
               <p className="mb-4">{product.description}</p>
-              
+
               <div className="d-flex align-items-center mb-4 pt-2">
                 <div
                   className="input-group quantity mr-3"
                   style={{ width: "130px" }}
                 >
                   <div className="input-group-btn">
-                    <button className="btn btn-primary btn-minus" onClick={() => handleQuantity("dec")}>
+                    <button
+                      className="btn btn-primary btn-minus"
+                      onClick={() => handleQuantity("dec")}
+                    >
                       <FaMinus />
                     </button>
                   </div>
@@ -115,7 +119,10 @@ const ProductPage = ({ product, deviceType, relatedProducts }) => {
                     value={quantity}
                   />
                   <div className="input-group-btn">
-                    <button className="btn btn-primary btn-plus" onClick={() => handleQuantity("inc")}>
+                    <button
+                      className="btn btn-primary btn-plus"
+                      onClick={() => handleQuantity("inc")}
+                    >
                       <FaPlus />
                     </button>
                   </div>
@@ -144,9 +151,9 @@ const ProductPage = ({ product, deviceType, relatedProducts }) => {
             </div>
           </div>
         </div>
-        <Tabs description={description}/>
+        <Tabs description={description} />
       </div>
-       <RelatedProducts relatedProducts={relatedProducts}/>
+      <RelatedProducts relatedProducts={relatedProducts} />
     </>
   );
 };
@@ -156,9 +163,11 @@ export const getServerSideProps = async (context) => {
   const resProduct = await axios.get(
     `https://wpfurniture.mangoitsol.com/wp-json/wc/store/products/${params.id}`
   );
-  const resRelated = await axios.get(`https://wpfurniture.mangoitsol.com/wp-json/wc/store/products?orderby=slug`)
-  const product =  resProduct.data;
-  const relatedProducts = resRelated.data; 
+  const resRelated = await axios.get(
+    `https://wpfurniture.mangoitsol.com/wp-json/wc/store/products?orderby=slug`
+  );
+  const product = resProduct.data;
+  const relatedProducts = resRelated.data;
 
   return {
     props: {

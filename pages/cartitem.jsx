@@ -1,7 +1,11 @@
 import React from "react";
 import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { incrementQuantity, decrementQuantity, removeFromCart } from "../redux/cardSlice";
+import {
+  incrementQuantity,
+  decrementQuantity,
+  removeFromCart,
+} from "../redux/cardSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -53,8 +57,13 @@ const Cart = () => {
                             style={{ width: "100px" }}
                           >
                             <div className="input-group-btn">
-                              <button onClick={() => dispatch(decrementQuantity(item.id))} className="btn btn-sm btn-primary btn-minus">
-                               <FaMinus />
+                              <button
+                                onClick={() =>
+                                  dispatch(decrementQuantity(item.id))
+                                }
+                                className="btn btn-sm btn-primary btn-minus"
+                              >
+                                <FaMinus />
                               </button>
                             </div>
                             <input
@@ -63,7 +72,12 @@ const Cart = () => {
                               value={item.quantity}
                             />
                             <div className="input-group-btn">
-                              <button onClick={() => dispatch(incrementQuantity(item.id))} className="btn btn-sm btn-primary btn-plus">
+                              <button
+                                onClick={() =>
+                                  dispatch(incrementQuantity(item.id))
+                                }
+                                className="btn btn-sm btn-primary btn-plus"
+                              >
                                 <FaPlus />
                               </button>
                             </div>
@@ -73,7 +87,10 @@ const Cart = () => {
                           ${item.prices.price * item.quantity}
                         </td>
                         <td className="align-middle">
-                          <button onClick={() => dispatch(removeFromCart(item.id))} className="btn btn-sm btn-danger">
+                          <button
+                            onClick={() => dispatch(removeFromCart(item.id))}
+                            className="btn btn-sm btn-danger"
+                          >
                             <FaTimes />
                           </button>
                         </td>

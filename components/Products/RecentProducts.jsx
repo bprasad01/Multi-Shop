@@ -13,7 +13,7 @@ const RecentProducts = ({ recentProducts }) => {
           {recentProducts.slice(2).map((product) => (
             <Link href={`/shop/${product.id}`} passHref key={product.id}>
               <div
-              key={product.id}
+                key={product.id}
                 className="col-lg-3 col-md-4 col-sm-6 pb-1"
                 style={{ cursor: "pointer" }}
               >
@@ -21,7 +21,7 @@ const RecentProducts = ({ recentProducts }) => {
                   <div className="product-img position-relative overflow-hidden">
                     {product.images.slice(0, 1).map((imgData) => (
                       <img
-                      key={imgData.id}
+                        key={imgData.id}
                         className="img-fluid w-100"
                         src={imgData.src}
                         alt="product"

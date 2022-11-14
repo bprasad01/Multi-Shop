@@ -1,133 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React from "react";
 import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import api from "../../utils/config";
-import axios from "axios";
 import {
   incrementQuantity,
   decrementQuantity,
   removeFromCart,
 } from "../../redux/cardSlice";
-// stripe
-import { loadStripe } from "@stripe/stripe-js";
-// paypal
-import {
-  PayPalScriptProvider,
-  PayPalButtons,
-  usePayPalScriptReducer,
-} from "@paypal/react-paypal-js";
+import Link from "next/link";
 
 const Cart = () => {
-  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const router = useRouter();
-  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
-
   const getTotalPrice = () => {
     return cart.reduce(
       (acc, item) => acc + item.quantity * item.prices.price,
       0
-    );
-  };
-
-  // function for stripe payment integration
-  const createCheckOutSession = async () => {
-    const stripe = await stripePromise;
-
-    const checkoutSession = await axios.post("/api/create-checkout-session", {
-      items : cart,
-      email : "test@gmail.com"
-    });
-
-    const result = await stripe.redirectToCheckout({
-      sessionId : checkoutSession.data.id,
-    });
-
-    if(result.error){
-      alert(result.error.message);
-    }
-  }
-
-  // function for subscription
-  const createSubscription = async () => {
-    try {
-      
-    } catch (err) {
-      console.log(err);
-      alert('Payment Failed', err.message);
-    }
-  }
-
-  const createOrder = async(data) => {
-    try {
-      const res = await api.post('wp-json/wc/v1/orders', data)
-      res.status === 201 && router.push('/');
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  // This values are the props in the UI
-  const amount = getTotalPrice();
-  const currency = "USD";
-  const style = { layout: "vertical" };
-
-  const ButtonWrapper = ({ currency, showSpinner }) => {
-    // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
-    // This is the main reason to wrap the PayPalButtons in a new component
-    const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
-
-    useEffect(() => {
-      dispatch({
-        type: "resetOptions",
-        value: {
-          ...options,
-          currency: currency,
-        },
-      });
-    }, [currency, showSpinner]);
-
-    return (
-      <>
-        {showSpinner && isPending && <div className="spinner" />}
-        <PayPalButtons
-          style={style}
-          disabled={false}
-          forceReRender={[amount, currency, style]}
-          fundingSource={undefined}
-          createOrder={(data, actions) => {
-            return actions.order
-              .create({
-                purchase_units: [
-                  {
-                    amount: {
-                      currency_code: currency,
-                      value: amount,
-                    },
-                  },
-                ],
-              })
-              .then((orderId) => {
-                // Your code here after create the order
-                return orderId;
-              });
-          }}
-          onApprove={function (data, actions) {
-            return actions.order.capture().then(function (details) {
-              // Your code here after capture the order
-              const shipping = details.purchase_units[0].shipping;
-              createOrder({
-                customer : shipping.name.full_name,
-                address : shipping.address.address_line_1,
-                total : getTotalPrice(),
-                method : 1
-              })
-            });
-          }}
-        />
-      </>
     );
   };
 
@@ -246,30 +133,11 @@ const Cart = () => {
                     <h5>Total</h5>
                     <h5>${getTotalPrice()}</h5>
                   </div>
-                  {open ? (
-                    <div>
-                     <PayPalScriptProvider
-                     options={{
-                       "client-id": "AXZln8aHJVNeL2xVgwRASscAxyODvvqzV4W5iq3wwvWn5Mt_UwBPOuw-e_wF3DTbbm08fNmRSAwIceo9",
-                       components: "buttons",
-                       currency: "USD",
-                       "disable-funding": "credit,card,p24"
-                     }}
-                   >
-                     <ButtonWrapper currency={currency} showSpinner={false} />
-                   </PayPalScriptProvider>
-                   <button onClick={createCheckOutSession} className="btn btn-block btn-primary font-weight-bold my-3 py-3">
-                    Pay With Stripe
-                  </button>
-                  <button onClick={createSubscription} className="btn btn-block btn-primary font-weight-bold my-3 py-3">
-                    Subscribe
-                  </button>
-                   </div>
-                  ) : (
-                    <button onClick={() => setOpen(true)} className="btn btn-block btn-primary font-weight-bold my-3 py-3">
-                    Proceed To Checkout
-                  </button>
-                  )}  
+                  <Link href={"/checkout"}>
+                    <button className="btn btn-block btn-primary font-weight-bold my-3 py-3">
+                      Proceed To Checkout
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

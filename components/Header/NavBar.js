@@ -1,13 +1,15 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FaAngleDown, FaBars, FaHeart, FaShoppingCart } from "react-icons/fa";
 import Dropdown from "./Dropdown";
 import { useSelector } from "react-redux";
+// import useForceUpdate from "use-force-update";
+// import { useEffect } from "react";
+// import { useCallback } from "react";
 
 const NavBar = () => {
+  const quantity = useSelector((state) => state.cart);
 
-  const quantity = useSelector(state => state.cart)
-  
   const [isOpen, setIsOpen] = useState(false);
 
   const toggling = () => {
@@ -15,8 +17,19 @@ const NavBar = () => {
   };
 
   const getItemsCount = () => {
-    return quantity.reduce((acc, items ) => acc + items.quantity, 0)
-  }
+    return quantity.reduce((acc, items) => acc + items.quantity, 0);
+  };
+
+  // function for forcefully update react component
+  // const forceUpdate = useForceUpdate();
+  // const renderCount = useRef(0);
+  // useEffect(() => {
+  //   renderCount.current += 1;
+  // }, []);
+
+  // const onClick = useCallback(() => {
+  //   forceUpdate();
+  // }, [forceUpdate]);
 
   return (
     <>
@@ -33,9 +46,9 @@ const NavBar = () => {
               </h6>
               <FaAngleDown className=" text-dark" onClick={() => toggling()} />
             </button>
-           {isOpen && <Dropdown />}
+            {isOpen && <Dropdown />}
           </div>
-          
+
           <div className="col-lg-9">
             <nav className="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
               <a href="" className="text-decoration-none d-block d-lg-none">
@@ -59,16 +72,15 @@ const NavBar = () => {
                 id="navbarCollapse"
               >
                 <div className="navbar-nav mr-auto py-0">
-                  <Link href={"/"} passHref>
+                  <Link href="/" passHref>
                     <a className="nav-item nav-link active">Home</a>
                   </Link>
-                  <Link href={"/shop"} passHref>
-                    <a className="nav-item nav-link">Shop</a>
+                  <Link href="/shop">
+                    <a onClick={onClick} className="nav-item nav-link">
+                      Shop
+                    </a>
                   </Link>
-                  <a href="contact.html" className="nav-item nav-link">
-                    Contact
-                  </a>
-                  <Link href={"/subscribe"} passHref>
+                  <Link href="/plans" passHref>
                     <a className="nav-item nav-link">Subscription</a>
                   </Link>
                 </div>
@@ -82,16 +94,16 @@ const NavBar = () => {
                       0
                     </span>
                   </a>
-                  <Link href={'/cart'} passHref>
-                  <a className="btn px-0 ml-3">
-                    <FaShoppingCart className="text-primary" />
-                    <span
-                      className="badge text-secondary border border-secondary rounded-circle"
-                      style={{ paddingBottom: "2px" }}
-                    >
-                      {getItemsCount()}
-                    </span>
-                  </a>
+                  <Link href={"/cart"} passHref>
+                    <a className="btn px-0 ml-3">
+                      <FaShoppingCart className="text-primary" />
+                      <span
+                        className="badge text-secondary border border-secondary rounded-circle"
+                        style={{ paddingBottom: "2px" }}
+                      >
+                        {getItemsCount()}
+                      </span>
+                    </a>
                   </Link>
                 </div>
               </div>
@@ -99,7 +111,6 @@ const NavBar = () => {
           </div>
         </div>
       </div>
-      
     </>
   );
 };

@@ -1,3 +1,4 @@
+export const login = "https://wpfurniture.mangoitsol.com/wp-json/jwt-auth/v1/"
 import WooCommerceRestApi from "@woocommerce/woocommerce-rest-api";
 
 const api = new WooCommerceRestApi({
